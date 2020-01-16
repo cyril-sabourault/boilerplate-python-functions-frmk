@@ -1,0 +1,5 @@
+# Cloud Translation API config
+translate:
+    #  Generate an API Key in your GCP Project
+    #+ Don't forget to restrict the key to Translation API
+    api_key: ""
