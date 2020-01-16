@@ -47,8 +47,8 @@ class HTTP():
         if custom_headers is not None:
             headers = {k: custom_headers[k] for k in custom_headers}
 
-        access_token = self._get_access_token()
         if authz_header is True:
+            access_token = self._get_access_token()
             headers['Authorization'] = 'Bearer {}'.format(access_token)
 
         try:
