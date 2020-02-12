@@ -1,4 +1,4 @@
-from flask import jsonify, abort
+from flask import jsonify, abort, make_response
 from services.translate import Translate
 
 translate = Translate()
@@ -9,11 +9,12 @@ def entrypoint(request):
         return abort(405)
 
     request_args = request.args
-    if request_args and 'q' in request_args:
-        queried_text = request_args['q']
-    else:
-        return abort(400)
+    if not (request_args and 'q' in request_args and request_args['q'] != ''):
+        response = make_response('please specify a \'q\' query param', 400)
+        response.mimetype = 'text/plain'
+        return response
 
+    queried_text = request_args['q']
     detected_language = translate.detect_language(queried_text)
 
     return jsonify({
